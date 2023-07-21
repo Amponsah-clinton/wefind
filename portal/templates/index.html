@@ -1,0 +1,222 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+    
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="text-align: center; padding: 10px;">
+                    <em>WeFind is an NGO that seeks to bring recognition to the informal sector. Through it's online job listing.</em>
+                </div>
+            </div>
+        </div>
+   <!-- Carousel Start -->
+   <div class="container-fluid p-0">
+    <div class="owl-carousel header-carousel position-relative">
+        <div class="owl-carousel-item position-relative">
+            <img class="img-fluid" src="{% static 'images/carousel-1.jpg' %}" alt="">
+            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(43, 57, 64, .5);">
+                <div class="container">
+                    <div class="row justify-content-start">
+                        <div class="col-10 col-lg-8">
+                            <h1 class="display-3 text-white animated slideInDown mb-4">Find The Perfect Job That You Deserved</h1>
+                            <p class="fs-5 fw-medium text-white mb-4 pb-2">Have you been looking for your first job or the next job? Just try us now!</p>
+                            <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Search A Job</a>
+                            <a href="{% url 'talent' %}" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Find A Talent</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="owl-carousel-item position-relative">
+            <img class="img-fluid" src="{% static 'images/carousel-2.jpg' %}" alt="">
+            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(43, 57, 64, .5);">
+                <div class="container">
+                    <div class="row justify-content-start">
+                        <div class="col-10 col-lg-8">
+                            <h1 class="display-3 text-white animated slideInDown mb-4">Find The Best Professional That Fit Your Job</h1>
+                            <p class="fs-5 fw-medium text-white mb-4 pb-2">Have you been looking for professionals to do a job for you? Just try us now!</p>
+                            <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Search A Job</a>
+                            <a href="" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Find A Talent</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Carousel End -->
+
+
+
+<!-- Category Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Check Our Category</h1>
+        <div class="row g-4">
+            {% for category in categories %}
+            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+              <a class="cat-item rounded p-4" href="{% url 'category_view' category.id %}">
+                <h6 class="mb-3">{{ category.name }}</h6>
+                <p class="mb-0">{{ category.num_jobs }} Vacancy</p>
+                <p>Total Post(s): {{ category.total_jobs }}</p>
+              </a>
+            </div>
+          {% endfor %}
+            <div class="text-center"> 
+                <a style="text-align:center;">And Many More...</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container fadeInUp" data-wow-delay="0.1s">
+    <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Posted Jobs</h1>
+    <div class="row">
+        {% for job in job_posts|slice:":4" %}
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="card">
+                <img class="card-img-top" src="https://media.istockphoto.com/id/1173054931/photo/jobs-text-on-wooden-blocks-over-keyboard.jpg?s=612x612&w=0&k=20&c=1d3E26tHR7Yf7AUuGomDISXZTQ_u8PxizqTvo3bvSTY=" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">{{ job.job_title }}</h5>
+                    <p class="card-text">Location by: {{ job.location}}</p>
+                    <p class="card-text">Deadline: {{ job.deadline.date }} </p>
+                    <span class="text-center"><a href="{% url 'job_detail' job.pk %}">More details</a></span>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="text-center" style="padding-top: 10px;">
+<a href="{% url 'job_list' %}">View all</a>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+<div class="container" style="padding: 60px 10px 40px 10px;">
+    <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Posted Profiles</h1>
+    <div class="row">
+        {% for individual in skilled_individuals_list|slice:":4" %}
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="card">
+                <img class="card-img-top" style="height: 10rem;" src="{% static 'images/1.png' %}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">{{ individual.name }}</h5>
+                    <p class="card-text">Location: {{ individual.location }}</p>
+                    <p class="card-text">Availability: {{ individual.availability }}</p>
+                    <span class="text-center"><a href="{% url 'skilled_individual_details' individual.id %}">More details</a></span>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="text-center" style="padding-top: 15px;">
+        <a href="{% url 'skilled_individual' %}">View all</a>
+            </div>
+</div>
+
+
+
+
+
+        <!-- About Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="row g-5 align-items-center">
+                    <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+                        <div class="row g-0 about-bg rounded overflow-hidden">
+                            <div class="col-6 text-start">
+                                <img class="img-fluid w-100" src="{% static 'images/about-1.jpg' %}">
+                            </div>
+                            <div class="col-6 text-start">
+                                <img class="img-fluid w-100" src="{% static 'images/about-2.jpg' %}">
+                            </div>
+                            <div class="col-6 text-end">
+                                <img class="img-fluid w-100" src="{% static 'images/about-3.jpg' %}">
+                            </div>
+                            <div class="col-6 text-end">
+                                <img class="img-fluid w-100" src="{% static 'images/about-4.jpg' %}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+                        <h1 class="mb-4">We Help To Get The Best Job And Find A Talent</h1>
+                        <p class="mb-4">We aim to help our clients job a satisfactory work done by our professionals.</p>
+                        <p><i class="fa fa-check text-primary me-3"></i>Quick Response Time</p>
+                        <p><i class="fa fa-check text-primary me-3"></i>Reliable Professionals to depend</p>
+                        <p><i class="fa fa-check text-primary me-3"></i>Satisfactory Work done</p>
+                        <a class="btn btn-primary py-3 px-5 mt-3" href="{% url 'about' %}">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- About End -->
+
+
+     
+
+        <!-- Testimonial Start -->
+        <div class="container-xxl py-5 wow ">
+            <div class="container">
+                <h1 class="text-center mb-5">Our Clients Say!!!</h1>
+                <div class="owl-carousel testimonial-carousel">
+                    <div class="testimonial-item bg-light rounded p-4">
+                        <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
+                        <p>Wow they really made my day, when they quickly finished my work for me.</p>
+                        <div class="d-flex align-items-center">
+                            <img class="img-fluid flex-shrink-0 rounded" src="{% static 'images/testimonial-1.jpg'%}" style="width: 50px; height: 50px;">
+                            <div class="ps-3">
+                                <h5 class="mb-1">Malcom Eva</h5>
+                                <small>Resident at Fiapre</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-item bg-light rounded p-4">
+                        <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
+                        <p>Their quick response time is top notch</p>
+                        <div class="d-flex align-items-center">
+                            <img class="img-fluid flex-shrink-0 rounded" src="{% static 'images/testimonial-2.jpg'%}" style="width: 50px; height: 50px;">
+                            <div class="ps-3">
+                                <h5 class="mb-1">Bob Stone</h5>
+                                <small>Teacher</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-item bg-light rounded p-4">
+                        <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
+                        <p>Thank WeFind for making me to get my first job as a house keeper.</p>
+                        <div class="d-flex align-items-center">
+                        <img class="img-fluid flex-shrink-0 rounded" src="{% static 'images/testimonial-3.jpg'%}" style="width: 50px; height: 50px;">
+                            <div class="ps-3">
+                                <h5 class="mb-1">John Doe</h5>
+                                <small>House Keeper</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-item bg-light rounded p-4">
+                        <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
+                        <p>Thanks WeFind for this wonderful initiative</p>
+                        <div class="d-flex align-items-center">
+                            <img class="img-fluid flex-shrink-0 rounded" src="{% static 'images/testimonial-4.jpg'%}" style="width: 50px; height: 50px;">
+                            <div class="ps-3">
+                                <h5 class="mb-1">Gloria</h5>
+                                <small>Nanny</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% comment %} <script src="{% static 'js/main.js' %}"></script>  {% endcomment %}
+{% endblock  %}
+      
